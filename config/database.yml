@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch('RAILS_MAX_THREADS') { 5 } %>
+
+development:
+  <<: *default
+  database: fender-auth_development
+  #username: fender-auth
+  #password:
+  #host: localhost
+  #port: 5432
+
+test: &test
+  <<: *default
+  database: fender-auth_test
+
+production:
+  <<: *default
+  database: fender-auth_production
+  username: fender-auth
+  password: <%= ENV.fetch('FENDER_AUTH_DATABASE_PASSWORD') %>
+
+cucumber:
+  <<: *test
