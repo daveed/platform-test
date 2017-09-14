@@ -22,3 +22,17 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+
+
+
+
+docker-compose build --force-rm
+docker-compose run --rm rails bundle install
+docker-compose run --rm rails rake db:create
+docker-compose run --rm rails rake db:schema:load
+docker-compose up --remove-orphans
+
+
+docker-compose run --rm rails ./bin/cucumber
