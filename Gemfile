@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails', '~> 2.2.1'
 gem 'jbuilder', '~> 2.5'
 gem 'pg', '~> 0.18'
