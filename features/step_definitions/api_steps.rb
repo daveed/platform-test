@@ -8,12 +8,15 @@ When(/^I do a POST request to \/v(\d+)\/users$/) do |arg1|
 end
 
 Given(/^valid credentials$/) do |table|
-  # table is a Cucumber::MultilineArgument::DataTable
-  pending
+  @email = table.hashes.map { |r| r['email'] }.first
+  @password = table.hashes.map { |r| r['password'] }.first
 end
 
-When(/^I do a POST request to \/v(\d+)\/login$/) do |arg1|
-  pending
+Then(/^the response status should be (\d+)$/) do |status|
+  expect(last_response.status).to eq(status.to_i)
+end
+When(/^I do a POST request to "([^"]*)" with:$/) do |path, body|
+  post(path, body)
 end
 
 When(/^I do a DELETE request to \/v(\d+)\/logout$/) do |arg1|
