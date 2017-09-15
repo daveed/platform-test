@@ -9,3 +9,13 @@ Feature: Delete a user
       }
       """
     Then the response status should be 200
+
+  Scenario: Cannot delete a user
+    Given I send and accept JSON using Bearer "aaa.bbb.ccc"
+    When I do a DELETE request to "/users/2" with:
+      """
+      {
+        "email": "jimi@fender.com"
+      }
+      """
+    Then the response status should be 401

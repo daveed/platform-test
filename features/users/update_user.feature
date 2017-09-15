@@ -9,3 +9,13 @@ Feature: Update a user
       }
       """
     Then the response status should be 200
+
+  Scenario: Cannot update user
+    Given I send and accept JSON using Bearer "aaa.bbb.ccc"
+    When I do a PUT request to "/users/2" with:
+      """
+      {
+        "name": "James Marshall Hendrix"
+      }
+      """
+    Then the response status should be 401
