@@ -13,27 +13,9 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/42
   def update
-
-    # render ok
-
-    # render error if no Bearer or decode nil or no user
-
-    # check token in headers
-    if request.headers['HTTP_AUTHORIZATION'].present?
-      # extract token from Bearer
-      token = request.headers['HTTP_AUTHORIZATION'].gsub(/Bearer /, '')
-
-      # decode token
-      decode_token = JwtUtil.decode(token)
-
-      # extract user id from decoded token
-      user_id = decode_token['user_id'] if decode_token
-
-      # find and update user
-      @user = User.where(id: user_id).first if user_id
-      @user.update(user_params) if @user
-
-      # render json
+    @user = User.where(id: user_id).first if user_id
+    @user.update(user_params)
+    if @user
       render json: @user, status: :ok
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
@@ -50,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def authorization_header?
-    request.headers['HTTP_AUTHORIZATION'].present?
+    authorization_header.present?
   end
 
   def token
@@ -70,7 +52,7 @@ class UsersController < ApplicationController
   end
 
   def authenticate_user
-    authorization_header? && decode_token?
+    render json: { error: 'unauthorized' }, status: :unauthorized unless authorization_header? && decode_token?
   end
 
   def user_params
