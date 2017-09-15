@@ -1,38 +1,44 @@
-# README
+# Fender auth
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Overview
 
-Things you may want to cover:
+This Rails 5 REST api provides a token based authentication system.
 
-* Ruby version
+## Getting Started
 
-* System dependencies
+1. Download and Install [Docker](https://www.docker.com)
 
-* Configuration
+2. Clone the repo
 
-* Database creation
+3. Build the image
 
-* Database initialization
+```sh
+  $ docker-compose build --force-rm
+```
 
-* How to run the test suite
+4. Install the Ruby gems
 
-* Services (job queues, cache servers, search engines, etc.)
+```sh
+  $ docker-compose run --rm rails bundle install
+```
 
-* Deployment instructions
+5. Create, load, and seed the database
 
-* ...
+```sh
+  $ docker-compose run --rm rails ./bin/rails db:create
+  $ docker-compose run --rm rails ./bin/rails db:schema:load
+  $ docker-compose run --rm rails ./bin/rails db:seed
+```
 
+6. Run it
 
+```sh
+  $ docker-compose up --remove-orphans
+```
 
+7. Test it
 
-
-
-docker-compose build --force-rm
-docker-compose run --rm rails bundle install
-docker-compose run --rm rails rake db:create
-docker-compose run --rm rails rake db:schema:load
-docker-compose up --remove-orphans
-
-
-docker-compose run --rm rails ./bin/cucumber
+```sh
+  $ docker-compose run --rm -e RAILS_ENV=test rails ./bin/rails db:seed
+  $ docker-compose run --rm -e RAILS_ENV=test rails bash -c "./bin/rails db:environment:set RAILS_ENV=test && ./bin/rake db:test:prepare && ./bin/cucumber"
+```
