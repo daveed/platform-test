@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/42
+  # PUT /users/42
   def update
     @user = User.where(id: user_id).first if user_id
     if @user
