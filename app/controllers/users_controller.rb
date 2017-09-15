@@ -1,8 +1,15 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show update destroy]
+  before_action :set_user, only: %i[update destroy]
 
   # POST /users
-  def create; end
+  def create
+    @user = User.new(email: params[:email], password: params[:password])
+    if @user.save
+      render json: @user, status: :created
+    else
+      render json: { errors: @user.errors.full_messages }, status: :bad_request
+    end
+  end
 
   # PATCH/PUT /users/42
   def update; end
@@ -17,6 +24,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.fetch(:user, {})
+    params.require(:user).permit(:email, :password, :name)
   end
 end
