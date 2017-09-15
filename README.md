@@ -40,5 +40,5 @@ This Rails 5 REST api provides a token based authentication system.
 
 ```sh
   $ docker-compose run --rm -e RAILS_ENV=test rails ./bin/rails db:seed
-  $ docker-compose run --rm -e RAILS_ENV=test rails bash -c "./bin/rails db:environment:set RAILS_ENV=test && ./bin/rake db:test:prepare && ./bin/cucumber"
+  $ docker-compose run --rm -e RAILS_ENV=test rails ./bin/cucumber
 ```
