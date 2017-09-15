@@ -5,8 +5,9 @@ Feature: Register a user
     When I do a POST request to "/users" with:
       """
       {
-        "email": "jimi@fender.com",
-        "password": "stratocaster"
+        "name": "Chris Shiflett",
+        "email": "chris@fender.com",
+        "password": "telecaster"
       }
       """
     Then the response status should be 201
