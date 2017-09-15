@@ -11,7 +11,9 @@ class AuthController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    head :ok
+  end
 
   private
 

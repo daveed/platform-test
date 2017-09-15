@@ -1,8 +1,11 @@
 Feature: Delete a user
 
   Scenario: Delete a user
-    Given a user and a token
-      | email             | password   | token       |
-      | antman@marvel.com | 4ntm4nm4rv | xxx.Yyy.zzz |
-    When I do a DELETE request to /v1/user/1
-    Then the response status should be "204"
+    Given I send and accept JSON using Bearer "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoyfQ.O8gkQJRE65ejgoCN9Ndok9wdQC4jREJMq0mbSL_IudTUYsGjs7D4qPqhUNwpuWZHwzzO2Cud1F0IT4ODonk4gw"
+    When I do a DELETE request to "/users/2" with:
+      """
+      {
+        "email": "jimi@fender.com"
+      }
+      """
+    Then the response status should be 200

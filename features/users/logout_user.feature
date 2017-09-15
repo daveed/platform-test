@@ -1,8 +1,11 @@
 Feature: Log a user out
 
   Scenario: User logs out
-    Given valid credentials
-      | email             | password   | token       |
-      | antman@marvel.com | 4ntm4nm4rv | xxx.Yyy.zzz |
-    When I do a DELETE request to /users/logout
-    Then the response status should be "200"
+    Given I send and accept JSON using Bearer "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoyfQ.O8gkQJRE65ejgoCN9Ndok9wdQC4jREJMq0mbSL_IudTUYsGjs7D4qPqhUNwpuWZHwzzO2Cud1F0IT4ODonk4gw"
+    When I do a DELETE request to "/auth/logout" with:
+      """
+      {
+        "email": "jimi@fender.com"
+      }
+      """
+    Then the response status should be 200

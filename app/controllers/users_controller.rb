@@ -14,8 +14,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/42
   def update
     @user = User.where(id: user_id).first if user_id
-    @user.update(user_params)
     if @user
+      @user.update(user_params)
       render json: @user, status: :ok
     else
       render json: { error: 'unauthorized' }, status: :unauthorized
@@ -23,7 +23,15 @@ class UsersController < ApplicationController
   end
 
   # DELETE /users/42
-  def destroy; end
+  def destroy
+    @user = User.where(id: user_id).first if user_id
+    if @user
+      @user.destroy
+      render json: @user, status: :ok
+    else
+      render json: { error: 'unauthorized' }, status: :unauthorized
+    end
+  end
 
   private
 
